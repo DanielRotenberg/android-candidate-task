@@ -1,7 +1,7 @@
 package homework.chegg.com.chegghomework.Presentation.injection;
 
 import dagger.Component;
-import homework.chegg.com.chegghomework.MainActivity;
+import homework.chegg.com.chegghomework.Presentation.CheggActivity;
 import homework.chegg.com.chegghomework.injection.component.GlobalComponent;
 
 
@@ -12,6 +12,6 @@ import homework.chegg.com.chegghomework.injection.component.GlobalComponent;
 @Component(modules = CheggModule.class, dependencies = GlobalComponent.class)
 public interface CheggComponent {
 
-  void inject(MainActivity mainActivity);
+  void inject(CheggActivity cheggActivity);
 
 }

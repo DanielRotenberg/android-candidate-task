@@ -10,13 +10,12 @@ import com.google.gson.annotations.SerializedName;
 public class Innerdata {
 
     @SerializedName("aticleId")
-    @Expose
     private Integer aticleId;
+
     @SerializedName("articlewrapper")
-    @Expose
     private Articlewrapper articlewrapper;
+
     @SerializedName("picture")
-    @Expose
     private String picture;
 
     public Integer getAticleId() {

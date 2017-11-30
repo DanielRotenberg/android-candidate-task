@@ -1,56 +1,41 @@
 package homework.chegg.com.chegghomework.data.entities.dataSourceC;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import homework.chegg.com.chegghomework.data.entities.DataConverter;
+import homework.chegg.com.chegghomework.data.entities.Item;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by dr9874 on 30/11/2017.
  */
 
-public class DataSourceC {
+public class DataSourceC implements DataConverter<DataSourceC, Item> {
 
-    @SerializedName("topLine")
-    @Expose
-    private String topLine;
-    @SerializedName("subLine1")
-    @Expose
-    private String subLine1;
-    @SerializedName("subline2")
-    @Expose
-    private String subline2;
-    @SerializedName("image")
-    @Expose
-    private String image;
+  private List<News> newsList = Collections.emptyList();
 
-    public String getTopLine() {
-        return topLine;
+  public List<News> getNewsList() {
+    return newsList;
+  }
+
+  public void setNewsList(List<News> newsList) {
+    this.newsList = newsList;
+  }
+
+  @Override
+  public List<Item> convert(DataSourceC source) {
+    List<Item> itemList = Collections.emptyList();
+    for (News news : newsList) {
+      Item item = new Item();
+      item.setHeader(news.getTopLine());
+      item.setDescription(news.getSubLine1().concat(news.getSubline2()));
+      item.setPicture(news.getImage());
+      itemList.add(item);
     }
+    return itemList;
+  }
 
-    public void setTopLine(String topLine) {
-        this.topLine = topLine;
-    }
+  @Override
+  public void fetchData() {
 
-    public String getSubLine1() {
-        return subLine1;
-    }
-
-    public void setSubLine1(String subLine1) {
-        this.subLine1 = subLine1;
-    }
-
-    public String getSubline2() {
-        return subline2;
-    }
-
-    public void setSubline2(String subline2) {
-        this.subline2 = subline2;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+  }
 }

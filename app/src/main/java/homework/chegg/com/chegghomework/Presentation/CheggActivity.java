@@ -1,4 +1,4 @@
-package homework.chegg.com.chegghomework;
+package homework.chegg.com.chegghomework.Presentation;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,13 +7,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import homework.chegg.com.chegghomework.CheggApplication;
 import homework.chegg.com.chegghomework.Presentation.CheggContract;
 import homework.chegg.com.chegghomework.Presentation.CheggContract.Presenter;
 import homework.chegg.com.chegghomework.Presentation.injection.CheggModule;
 import homework.chegg.com.chegghomework.Presentation.injection.DaggerCheggComponent;
+import homework.chegg.com.chegghomework.R;
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements CheggContract.View {
+public class CheggActivity extends AppCompatActivity implements CheggContract.View {
 
     @Inject
     CheggContract.Presenter presenter;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements CheggContract.Vie
 
     private void setupToolbar() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initDaggerInjection();
         presenter.subscribe();
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements CheggContract.Vie
 
         setContentView(R.layout.activity_main);
         setupToolbar();
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = findViewById(R.id.my_recycler_view);
     }
 
     private void initDaggerInjection(){

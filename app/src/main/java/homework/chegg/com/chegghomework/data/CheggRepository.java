@@ -1,5 +1,8 @@
 package homework.chegg.com.chegghomework.data;
 
+import homework.chegg.com.chegghomework.data.entities.Item;
+import java.util.Collections;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -10,6 +13,8 @@ import javax.inject.Singleton;
 public class CheggRepository implements CheggDataSource {
 
   CheggDataSource remoteDataSource;
+
+  List<Item> itemList = Collections.emptyList();
 
   @Inject
   public CheggRepository(CheggDataSource remoteDataSource) {
