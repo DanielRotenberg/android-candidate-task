@@ -13,6 +13,8 @@ import homework.chegg.com.chegghomework.Presentation.CheggContract.Presenter;
 import homework.chegg.com.chegghomework.Presentation.injection.CheggModule;
 import homework.chegg.com.chegghomework.Presentation.injection.DaggerCheggComponent;
 import homework.chegg.com.chegghomework.R;
+import homework.chegg.com.chegghomework.data.entities.Item;
+import java.util.List;
 import javax.inject.Inject;
 
 public class CheggActivity extends AppCompatActivity implements CheggContract.View {
@@ -93,7 +95,9 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
     }
 
     @Override
-    public void showUpdatedData() {
+    public void showUpdatedData(List<Item> itemList) {
 
     }
+
+
 }

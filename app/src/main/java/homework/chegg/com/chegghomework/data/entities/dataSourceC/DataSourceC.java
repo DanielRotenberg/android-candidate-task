@@ -1,7 +1,9 @@
 package homework.chegg.com.chegghomework.data.entities.dataSourceC;
 
+import android.util.Log;
 import homework.chegg.com.chegghomework.data.entities.DataConverter;
 import homework.chegg.com.chegghomework.data.entities.Item;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * Created by dr9874 on 30/11/2017.
  */
 
-public class DataSourceC implements DataConverter<DataSourceC, Item> {
+public class DataSourceC implements DataConverter {
 
   private List<News> newsList = Collections.emptyList();
 
@@ -22,8 +24,8 @@ public class DataSourceC implements DataConverter<DataSourceC, Item> {
   }
 
   @Override
-  public List<Item> convert(DataSourceC source) {
-    List<Item> itemList = Collections.emptyList();
+  public List<Item> convert() {
+    List<Item> itemList = new ArrayList<>();
     for (News news : newsList) {
       Item item = new Item();
       item.setHeader(news.getTopLine());

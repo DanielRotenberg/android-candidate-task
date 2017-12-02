@@ -3,8 +3,11 @@ package homework.chegg.com.chegghomework.data.remote;
 
 import homework.chegg.com.chegghomework.data.entities.dataSourceA.DataSourceA;
 import homework.chegg.com.chegghomework.data.entities.dataSourceB.DataSourceB;
-import homework.chegg.com.chegghomework.data.entities.dataSourceC.DataSourceC;
-import io.reactivex.Single;
+import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
+import io.reactivex.Observable;
+
+import java.util.List;
+
 import retrofit2.http.GET;
 
 /**
@@ -13,11 +16,12 @@ import retrofit2.http.GET;
 
 public interface CheggService {
     @GET("android_homeword_datasourceA.json")
-    Single<DataSourceA> getDataSourceA();
+    Observable<DataSourceA> getDataSourceA();
 
     @GET("android_homework_datasourceB.json")
-    Single<DataSourceB> getDataSourceB();
+    Observable<DataSourceB> getDataSourceB();
 
     @GET("android_homework_datasourceC.json")
-    Single<DataSourceC> getDataSourceC();
+    Observable<List<News>> getDataSourceC();
+
 }

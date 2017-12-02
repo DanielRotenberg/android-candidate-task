@@ -1,9 +1,11 @@
 package homework.chegg.com.chegghomework.data.entities.dataSourceB;
 
+import android.util.Log;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import homework.chegg.com.chegghomework.data.entities.DataConverter;
 import homework.chegg.com.chegghomework.data.entities.Item;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * Created by dr9874 on 30/11/2017.
  */
 
-public class DataSourceB implements DataConverter<DataSourceB,Item> {
+public class DataSourceB implements DataConverter{
 
     @SerializedName("metadata")
     @Expose
@@ -26,8 +28,8 @@ public class DataSourceB implements DataConverter<DataSourceB,Item> {
     }
 
     @Override
-    public List<Item> convert(DataSourceB source) {
-        List<Item> itemList = Collections.emptyList();
+    public List<Item> convert() {
+        List<Item> itemList = new ArrayList<>();
         List<Innerdata> sourceList = getMetadata().getInnerData();
         for(Innerdata innerdata: sourceList){
             Item item = new Item();

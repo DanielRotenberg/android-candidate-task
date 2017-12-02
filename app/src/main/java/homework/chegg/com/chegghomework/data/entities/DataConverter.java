@@ -6,10 +6,12 @@ import java.util.List;
  * Created by DanielR on 01/12/2017.
  */
 
-public interface DataConverter<FROM,TO> {
+public interface DataConverter {
 
-   List<TO> convert(FROM source);
+   List<Item> convert();
 
    void fetchData();
+
+  // Item convertItem();
 
 }
