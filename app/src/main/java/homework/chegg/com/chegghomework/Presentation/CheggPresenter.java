@@ -35,7 +35,8 @@ public class CheggPresenter implements CheggContract.Presenter {
 
   @Override
   public void subscribe() {
-    Observable<List<Item>> listObservable = cheggRepository.fetchDataFromMultipleSources();
+    cheggRepository.getDataSourceA();
+   /* Observable<List<Item>> listObservable = cheggRepository.fetchDataFromMultipleSources();
     Disposable disposable = listObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
@@ -44,7 +45,7 @@ public class CheggPresenter implements CheggContract.Presenter {
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
-    subscriptions.add(disposable);
+    subscriptions.add(disposable);*/
 
     view.showLoadingProgress();
   }

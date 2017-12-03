@@ -2,6 +2,7 @@ package homework.chegg.com.chegghomework.data.remote;
 
 
 
+import android.util.Log;
 import homework.chegg.com.chegghomework.data.CheggDataSource;
 import homework.chegg.com.chegghomework.data.entities.Item;
 import homework.chegg.com.chegghomework.data.entities.dataSourceC.DataSourceC;
@@ -31,6 +32,7 @@ public class CheggRemoteDataSource implements CheggDataSource {
 
   @Override
   public Observable<List<Item>> getDataSourceA() {
+    Log.i("jira", "getDataSourceA: called in remote");
     return cheggService.getDataSourceA().map(dataSourceA -> dataSourceA.convert());
 
   }
