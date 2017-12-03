@@ -37,11 +37,12 @@ public class CheggPresenter implements CheggContract.Presenter {
   public void subscribe() {
     Observable<List<Item>> listObservable = cheggRepository.fetchDataFromMultipleSources();
     Disposable disposable = listObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(
-        next -> {Log.d(
-                "jira", "subscribe:YESSS "+next.size());
-                view.showUpdatedData(next);
+        next -> {
+          Log.d(
+              "jira", "subscribe:YESSS " + next.size());
+          view.showUpdatedData(next);
         },
-        throwable -> Log.e("jira1", "subscribe: error "+throwable.getMessage() ));
+        throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
     subscriptions.add(disposable);
 
@@ -50,7 +51,9 @@ public class CheggPresenter implements CheggContract.Presenter {
 
   @Override
   public void unSubscribe() {
-
+    if (subscriptions != null && !subscriptions.isDisposed()) {
+      subscriptions.dispose();
+    }
   }
 
   @Override
@@ -60,13 +63,14 @@ public class CheggPresenter implements CheggContract.Presenter {
 
   @Override
   public void refreshDataSourceA() {
-   Observable<List<Item>> listSourceA = cheggRepository.getDataSourceA();
+    Observable<List<Item>> listSourceA = cheggRepository.getDataSourceA();
     Disposable disposable = listSourceA.observeOn(AndroidSchedulers.mainThread()).subscribe(
-            next -> {Log.d(
-                    "jira", "subscribe:YESSS "+next.size());
-              view.showUpdatedData(next);
-            },
-            throwable -> Log.e("jira1", "subscribe: error "+throwable.getMessage() ));
+        next -> {
+          Log.d(
+              "jira", "subscribe:YESSS " + next.size());
+          view.showUpdatedData(next);
+        },
+        throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
     subscriptions.add(disposable);
 
@@ -76,11 +80,12 @@ public class CheggPresenter implements CheggContract.Presenter {
   public void refreshDataSourceB() {
     Observable<List<Item>> listSourceB = cheggRepository.getDataSourceB();
     Disposable disposable = listSourceB.observeOn(AndroidSchedulers.mainThread()).subscribe(
-            next -> {Log.d(
-                    "jira", "subscribe:YESSS "+next.size());
-              view.showUpdatedData(next);
-            },
-            throwable -> Log.e("jira1", "subscribe: error "+throwable.getMessage() ));
+        next -> {
+          Log.d(
+              "jira", "subscribe:YESSS " + next.size());
+          view.showUpdatedData(next);
+        },
+        throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
     subscriptions.add(disposable);
   }
@@ -89,11 +94,12 @@ public class CheggPresenter implements CheggContract.Presenter {
   public void refreshDataSourceC() {
     Observable<List<Item>> listSourceC = cheggRepository.getDataSourceC();
     Disposable disposable = listSourceC.observeOn(AndroidSchedulers.mainThread()).subscribe(
-            next -> {Log.d(
-                    "jira", "subscribe:YESSS "+next.size());
-              view.showUpdatedData(next);
-            },
-            throwable -> Log.e("jira1", "subscribe: error "+throwable.getMessage() ));
+        next -> {
+          Log.d(
+              "jira", "subscribe:YESSS " + next.size());
+          view.showUpdatedData(next);
+        },
+        throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
     subscriptions.add(disposable);
   }
