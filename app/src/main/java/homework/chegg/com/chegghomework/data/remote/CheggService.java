@@ -1,6 +1,7 @@
 package homework.chegg.com.chegghomework.data.remote;
 
 
+import homework.chegg.com.chegghomework.Consts;
 import homework.chegg.com.chegghomework.data.entities.dataSourceA.DataSourceA;
 import homework.chegg.com.chegghomework.data.entities.dataSourceB.DataSourceB;
 import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
@@ -15,13 +16,13 @@ import retrofit2.http.GET;
  */
 
 public interface CheggService {
-    @GET("android_homeword_datasourceA.json")
+    @GET(Consts.DATA_SOURCE_A_URL)
     Observable<DataSourceA> getDataSourceA();
 
-    @GET("android_homework_datasourceB.json")
+    @GET(Consts.DATA_SOURCE_B_URL)
     Observable<DataSourceB> getDataSourceB();
 
-    @GET("android_homework_datasourceC.json")
+    @GET(Consts.DATA_SOURCE_C_URL)
     Observable<List<News>> getDataSourceC();
 
 }

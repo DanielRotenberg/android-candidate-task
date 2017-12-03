@@ -2,19 +2,23 @@ package homework.chegg.com.chegghomework.Presentation;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import homework.chegg.com.chegghomework.CheggApplication;
-import homework.chegg.com.chegghomework.Presentation.CheggContract;
 import homework.chegg.com.chegghomework.Presentation.CheggContract.Presenter;
 import homework.chegg.com.chegghomework.Presentation.injection.CheggModule;
 import homework.chegg.com.chegghomework.Presentation.injection.DaggerCheggComponent;
 import homework.chegg.com.chegghomework.R;
 import homework.chegg.com.chegghomework.data.entities.Item;
+
 import java.util.List;
+
+
+
 import javax.inject.Inject;
 
 public class CheggActivity extends AppCompatActivity implements CheggContract.View {
@@ -31,20 +35,21 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
         buildUI();
     }
 
-    private void setupToolbar() {
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        initDaggerInjection();
-        presenter.subscribe();
-
-    }
 
     private void buildUI() {
-
         setContentView(R.layout.activity_main);
         setupToolbar();
         mRecyclerView = findViewById(R.id.my_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(decoration);
+    }
+
+    private void setupToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        initDaggerInjection();
     }
 
     private void initDaggerInjection(){
@@ -53,11 +58,11 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
             .build()
             .inject(this);
 
-
     }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
         return true;
     }
@@ -75,8 +80,9 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
 
     // TODO fetch data from all data sources, aggregate data and display in RecyclerView
     private void onRefreshData() {
+        presenter.subscribe();
+        hideLoadingProgress();
 
-        Toast.makeText(this, "Fetch data aggregate and show on RecyclerView", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -86,7 +92,6 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
 
     @Override
     public void showLoadingProgress() {
-        Toast.makeText(this,"hello",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -96,7 +101,7 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
 
     @Override
     public void showUpdatedData(List<Item> itemList) {
-
+        mRecyclerView.setAdapter(new CheggAdapter(itemList));
     }
 
 

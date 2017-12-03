@@ -7,6 +7,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 
+import homework.chegg.com.chegghomework.Consts;
 import homework.chegg.com.chegghomework.data.CheggDataSource;
 import homework.chegg.com.chegghomework.data.remote.CheggRemoteDataSource;
 import homework.chegg.com.chegghomework.data.remote.CheggService;
@@ -23,11 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CheggRemoteDataSourceModule {
 
   private final static String BASE_URL = "http://chegg-mobile-promotioms.s3.amazonaws.com/android/homework/";
-
-  public final static String DATA_SOURCE_A_URL = BASE_URL + "android_homeword_datasourceA.json";
-  public final static String DATA_SOURCE_B_URL = BASE_URL + "android_homework_datasourceB.json";
-  public final static String DATA_SOURCE_C_URL = BASE_URL + "android_homework_datasourceC.json";
-
 
   @Provides
   @Singleton

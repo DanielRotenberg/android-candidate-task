@@ -14,7 +14,7 @@ import homework.chegg.com.chegghomework.injection.module.CheggRemoteDataSourceMo
 
 public class CheggApplication extends Application {
 
-  GlobalComponent globalComponent;
+ private GlobalComponent globalComponent;
 
   @Override
   public void onCreate() {

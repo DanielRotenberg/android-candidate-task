@@ -26,6 +26,9 @@ public interface CheggContract {
 
     void getDataUpdate();
 
+    void refreshDataSourceA();
 
-  }
+    void refreshDataSourceB();
+
+    void refreshDataSourceC();  }
 }
