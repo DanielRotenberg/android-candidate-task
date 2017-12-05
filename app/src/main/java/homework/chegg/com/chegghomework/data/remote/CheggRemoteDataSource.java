@@ -5,8 +5,11 @@ package homework.chegg.com.chegghomework.data.remote;
 import android.util.Log;
 import homework.chegg.com.chegghomework.data.CheggDataSource;
 import homework.chegg.com.chegghomework.data.entities.Item;
+import homework.chegg.com.chegghomework.data.entities.dataSourceA.DataSourceA;
+import homework.chegg.com.chegghomework.data.entities.dataSourceB.DataSourceB;
 import homework.chegg.com.chegghomework.data.entities.dataSourceC.DataSourceC;
 
+import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
 import io.reactivex.Observable;
 
 import io.reactivex.schedulers.Schedulers;
@@ -55,17 +58,39 @@ public class CheggRemoteDataSource implements CheggDataSource {
 
   @Override
   public Observable<List<Item>> fetchDataFromMultipleSources() {
-    Observable<List<Item>> finalObservarble = Observable
-        .zip(getDataSourceA().subscribeOn(Schedulers.io()),
-            getDataSourceB().subscribeOn(Schedulers.io())
-            , getDataSourceC().subscribeOn(Schedulers.io()),
-            (items, items2, items3) -> {
-              items.addAll(items2);
-              items.addAll(items3);
-              return items;
-            });
-    return finalObservarble;
+//    Observable<List<Item>> finalObservarble = Observable
+//        .zip(getDataSourceA().subscribeOn(Schedulers.io()),
+//            getDataSourceB().subscribeOn(Schedulers.io())
+//            , getDataSourceC().subscribeOn(Schedulers.io()),
+//            (items, items2, items3) -> {
+//              items.addAll(items2);
+//              items.addAll(items3);
+//              return items;
+//            });
+//    return finalObservarble;
+    return null;
   }
+
+  @Override
+  public Observable<DataSourceA> getOriginalA() {
+    return cheggService.getDataSourceA();
+  }
+
+  @Override
+  public Observable<DataSourceB> getOriginalB() {
+    return cheggService.getDataSourceB();
+  }
+
+  @Override
+  public Observable<List<News>> getOriginalC() {
+    return cheggService.getDataSourceC();
+  }
+
+  @Override
+  public Observable<DataSourceA> refreshSourceA() {
+    return null;
+  }
+
 }
 
 

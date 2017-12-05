@@ -13,6 +13,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Timed;
 
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -35,8 +37,8 @@ public class CheggPresenter implements CheggContract.Presenter {
 
   @Override
   public void subscribe() {
-    cheggRepository.getDataSourceA();
-   /* Observable<List<Item>> listObservable = cheggRepository.fetchDataFromMultipleSources();
+//    cheggRepository.getDataSourceA();
+    Observable<List<Item>> listObservable = cheggRepository.fetchDataFromMultipleSources();
     Disposable disposable = listObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
@@ -45,7 +47,7 @@ public class CheggPresenter implements CheggContract.Presenter {
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
-    subscriptions.add(disposable);*/
+    subscriptions.add(disposable);
 
     view.showLoadingProgress();
   }
@@ -103,6 +105,22 @@ public class CheggPresenter implements CheggContract.Presenter {
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
     subscriptions.add(disposable);
+  }
+
+  @Override
+  public void refreshData() {
+
+    ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
+    long period = 100; // the period between successive executions
+    exec.scheduleAtFixedRate(()-> {
+      cheggRepository.getDataSourceA();
+      Log.d("jira", "refreshData: A scheduler");
+    }, 0, 5, TimeUnit.SECONDS);
+    exec.scheduleAtFixedRate(()->{cheggRepository.getDataSourceB();
+      Log.e("jira", "refreshData: B scheduler" );},0,10,TimeUnit.SECONDS);
+    exec.scheduleAtFixedRate(()->cheggRepository.getDataSourceA(),0,15,TimeUnit.SECONDS);
+    //long delay = 100; //the delay between the termination of one execution and the commencement of the next
+    //exec.scheduleWithFixedDelay(new MyTask(), 0, delay, TimeUnit.MICROSECONDS);
   }
 
 }

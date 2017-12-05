@@ -102,6 +102,7 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
     @Override
     public void showUpdatedData(List<Item> itemList) {
         mRecyclerView.setAdapter(new CheggAdapter(itemList));
+        presenter.refreshData();
     }
 
 

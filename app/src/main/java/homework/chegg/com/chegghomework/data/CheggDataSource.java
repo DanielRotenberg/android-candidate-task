@@ -1,6 +1,9 @@
 package homework.chegg.com.chegghomework.data;
 
 import homework.chegg.com.chegghomework.data.entities.Item;
+import homework.chegg.com.chegghomework.data.entities.dataSourceA.DataSourceA;
+import homework.chegg.com.chegghomework.data.entities.dataSourceB.DataSourceB;
+import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
 import io.reactivex.Observable;
 import java.util.List;
 
@@ -17,5 +20,11 @@ public interface CheggDataSource {
   Observable<List<Item>> getDataSourceC();
 
   Observable<List<Item>> fetchDataFromMultipleSources();
+
+  Observable<DataSourceA> getOriginalA();
+  Observable<DataSourceB> getOriginalB();
+  Observable<List<News>> getOriginalC();
+
+  Observable<DataSourceA> refreshSourceA();
 
 }
