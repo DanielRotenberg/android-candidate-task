@@ -42,12 +42,12 @@ public class CheggPresenter implements CheggContract.Presenter {
     Disposable disposable = listObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
-              "jira", "subscribe:YESSS " + next.size());
+              "jira", "here updating view vs full list" + next.size());
           view.showUpdatedData(next);
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
-    subscriptions.add(disposable);
+   // subscriptions.add(disposable);
 
     view.showLoadingProgress();
   }
@@ -66,16 +66,32 @@ public class CheggPresenter implements CheggContract.Presenter {
 
   @Override
   public void refreshDataSourceA() {
-    Observable<List<Item>> listSourceA = cheggRepository.getDataSourceA();
-    Disposable disposable = listSourceA.observeOn(AndroidSchedulers.mainThread()).subscribe(
+    Observable<List<Item>> listSourceA = cheggRepository.refreshSourceA();
+    ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+    long period = 100; // the period between successive executions
+    exec.scheduleAtFixedRate(()-> {
+      Log.w("jira", "refreshDataSourceA: excecuting scheduler");
+//      Disposable disposable = listSourceA.observeOn(AndroidSchedulers.mainThread()).subscribe(
+//          next -> {
+//            Log.d(
+//                "jira", "subscribe:Refreshing source AA" + next.size());
+//            view.showUpdatedData(next);
+//          },
+//          throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
+
+      //subscriptions.add(disposable);
+      Log.d("jira", "refreshData: A scheduler");
+    }, 0, 20, TimeUnit.SECONDS);
+    Log.e("jira", "refreshDataSourceA: AFTER excecuter task" );
+    /*Disposable disposable = listSourceA.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
-              "jira", "subscribe:YESSS " + next.size());
+              "jira", "subscribe:YESSS AAA" + next.size());
           view.showUpdatedData(next);
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
 
-    subscriptions.add(disposable);
+    subscriptions.add(disposable);*/
 
   }
 
@@ -85,7 +101,7 @@ public class CheggPresenter implements CheggContract.Presenter {
     Disposable disposable = listSourceB.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
-              "jira", "subscribe:YESSS " + next.size());
+              "jira", "subscribe:YESSS BBB " + next.size());
           view.showUpdatedData(next);
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
@@ -99,7 +115,7 @@ public class CheggPresenter implements CheggContract.Presenter {
     Disposable disposable = listSourceC.observeOn(AndroidSchedulers.mainThread()).subscribe(
         next -> {
           Log.d(
-              "jira", "subscribe:YESSS " + next.size());
+              "jira", "subscribe:YESSS CCC" + next.size());
           view.showUpdatedData(next);
         },
         throwable -> Log.e("jira1", "subscribe: error " + throwable.getMessage()));
@@ -110,15 +126,20 @@ public class CheggPresenter implements CheggContract.Presenter {
   @Override
   public void refreshData() {
 
-    ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
-    long period = 100; // the period between successive executions
-    exec.scheduleAtFixedRate(()-> {
-      cheggRepository.getDataSourceA();
-      Log.d("jira", "refreshData: A scheduler");
-    }, 0, 5, TimeUnit.SECONDS);
-    exec.scheduleAtFixedRate(()->{cheggRepository.getDataSourceB();
-      Log.e("jira", "refreshData: B scheduler" );},0,10,TimeUnit.SECONDS);
-    exec.scheduleAtFixedRate(()->cheggRepository.getDataSourceA(),0,15,TimeUnit.SECONDS);
+//    ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
+//    long period = 100; // the period between successive executions
+//    exec.scheduleAtFixedRate(()-> {
+//      cheggRepository.getDataSourceA();
+//      Log.d("jira", "refreshData: A scheduler");
+//    }, 0, 1, TimeUnit.MINUTES);
+
+
+
+
+
+//    exec.scheduleAtFixedRate(()->{cheggRepository.getDataSourceB();
+//      Log.e("jira", "refreshData: B scheduler" );},0,10,TimeUnit.SECONDS);
+//    exec.scheduleAtFixedRate(()->cheggRepository.getDataSourceA(),0,15,TimeUnit.SECONDS);
     //long delay = 100; //the delay between the termination of one execution and the commencement of the next
     //exec.scheduleWithFixedDelay(new MyTask(), 0, delay, TimeUnit.MICROSECONDS);
   }

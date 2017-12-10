@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -24,5 +25,15 @@ public interface CheggService {
 
     @GET(Consts.DATA_SOURCE_C_URL)
     Observable<List<News>> getDataSourceC();
+
+    @GET(Consts.DATA_SOURCE_A_URL)
+    Call<DataSourceA> getDataSourceACall();
+
+    @GET(Consts.DATA_SOURCE_B_URL)
+    Call<DataSourceB> getDataSourceBCall();
+
+    @GET(Consts.DATA_SOURCE_C_URL)
+    Call<List<News>> getDataSourceCCall();
+
 
 }

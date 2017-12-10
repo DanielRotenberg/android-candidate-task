@@ -9,7 +9,6 @@ import homework.chegg.com.chegghomework.data.entities.dataSourceC.DataSourceC;
 import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
 import io.reactivex.Observable;
 
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.schedulers.Timed;
@@ -21,6 +20,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import retrofit2.Call;
 
 /**
  * Created by DanielR on 30/11/2017.
@@ -100,7 +100,8 @@ return cheggService.getDataSourceC().map(news -> {
       cachedListMap.put(dataSourceC.getClass().getSimpleName(), temp);
       return temp;
     });
-return Observable.zip(firstSourec,secondSourec,thirdSource,(itemList, itemList2, itemList3) -> multipleSourcesList);
+    return Observable.zip(firstSourec, secondSourec, thirdSource,
+        (itemList, itemList2, itemList3) -> multipleSourcesList);
 //      Observable<List<Item>> thirdSourec = getOriginalC().map(
 //          dataSourceC -> {
 //            DataSourceC dataSourceCtemp = new DataSourceC();
@@ -148,17 +149,55 @@ return Observable.zip(firstSourec,secondSourec,thirdSource,(itemList, itemList2,
   }
 
   @Override
-  public Observable<DataSourceA> refreshSourceA() {
-   // Observable<List<Item>> observable =
+  public Observable<List<Item>> refreshSourceA() {
+    Observable<List<Item>> firstSourec = getOriginalA().subscribeOn(Schedulers.io()).map(
+        dataSourceA -> {
+          Log.i("jira", "refreshSourceA: in repository");
+          List<Item> temp = dataSourceA.convert();
+          List<Item> cashedList = cachedListMap.get(DataSourceA.class.getSimpleName());
+            if ((compareLists(cashedList,temp))){
+              Log.e("jira", "refreshSourceA: replacing cash" );
+              cachedListMap.put(dataSourceA.getClass().getSimpleName(),temp);
+            }
+          return convertMapToList(cachedListMap);
+        });
+    Log.d("jira", "return refreshSourceA: from repository");
+    return firstSourec;
+  }
 
+  @Override
+  public List<Item> refreshSourceACall() {
     return null;
   }
 
 
-  private boolean checkIfNeedRefresh(String key ,List<Item> list) {
+  private boolean checkIfNeedRefresh(String key, List<Item> list) {
 
     List<Item> cachedList = cachedListMap.get(list.getClass().getSimpleName());
     return false;
   }
+
+  private boolean compareLists(List<Item> cashed, List<Item> newList) {
+    boolean casheChanged = false;
+    List<Item> resultList = new ArrayList<>(cashed.size());
+    for (int i=0; i<cashed.size();i++) {
+      if (! cashed.get(i).equals(newList.get(i)) ){
+          casheChanged = true;
+          break;
+      }
+    }
+    return casheChanged;
+  }
+
+  private List<Item> convertMapToList(Map<String,List<Item>> itemMap){
+    List<Item> finalList = new ArrayList<>();
+    for (List<Item> itemList :itemMap.values()){
+      finalList.addAll(itemList);
+    }
+    return finalList;
+  }
+
 }
+
+
 

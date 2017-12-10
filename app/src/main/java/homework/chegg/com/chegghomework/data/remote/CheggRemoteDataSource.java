@@ -12,11 +12,13 @@ import homework.chegg.com.chegghomework.data.entities.dataSourceC.DataSourceC;
 import homework.chegg.com.chegghomework.data.entities.dataSourceC.News;
 import io.reactivex.Observable;
 
-import io.reactivex.schedulers.Schedulers;
-
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -87,7 +89,26 @@ public class CheggRemoteDataSource implements CheggDataSource {
   }
 
   @Override
-  public Observable<DataSourceA> refreshSourceA() {
+  public Observable<List<Item>> refreshSourceA() {
+    return null;
+  }
+
+  @Override
+  public List<Item> refreshSourceACall() {
+    Call<DataSourceA> listCall = cheggService.getDataSourceACall();
+    List<Item> result = new ArrayList<>();
+    listCall.enqueue(new Callback<DataSourceA>() {
+      @Override
+      public void onResponse(Call<DataSourceA> call, Response<DataSourceA> response) {
+         response.body().convert();
+      }
+
+      @Override
+      public void onFailure(Call<DataSourceA> call, Throwable t) {
+
+      }
+    });
+
     return null;
   }
 

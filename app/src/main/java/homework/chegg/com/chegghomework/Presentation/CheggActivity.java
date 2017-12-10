@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import homework.chegg.com.chegghomework.CheggApplication;
@@ -101,8 +102,9 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
 
     @Override
     public void showUpdatedData(List<Item> itemList) {
+        Log.e("jira", "showUpdatedData: called in Activity" );
         mRecyclerView.setAdapter(new CheggAdapter(itemList));
-        presenter.refreshData();
+        presenter.refreshDataSourceA();
     }
 
 
