@@ -2,6 +2,8 @@ package homework.chegg.com.chegghomework.data;
 
 import dagger.Module;
 import dagger.Provides;
+import homework.chegg.com.chegghomework.data.remote.CheggService;
+
 import javax.inject.Singleton;
 
 /**
@@ -12,8 +14,8 @@ public class CheggDataSourceModule {
 
   @Provides
   @Singleton
-  public CheggRepository provideCheggRepository(CheggDataSource cheggDataSource) {
-    return new CheggRepository(cheggDataSource);
+  public CheggRepository provideCheggRepository(CheggService cheggService) {
+    return new CheggRepository(cheggService);
 
   }
 

@@ -14,23 +14,13 @@ public interface CheggContract {
 
   interface View extends BaseView<Presenter> {
 
-    void showLoadingProgress();
-
-    void hideLoadingProgress();
-
     void showUpdatedData(List<Item> itemList);
+
+    void showRefreshData(List<Item> itemList);
   }
 
 
   interface Presenter extends BasePresenter {
-
-    void getDataUpdate();
-
-    void refreshDataSourceA();
-
-    void refreshDataSourceB();
-
-    void refreshDataSourceC();
 
     void refreshData();
   }

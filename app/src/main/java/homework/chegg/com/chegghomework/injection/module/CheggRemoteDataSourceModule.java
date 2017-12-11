@@ -7,9 +7,6 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 
-import homework.chegg.com.chegghomework.Consts;
-import homework.chegg.com.chegghomework.data.CheggDataSource;
-import homework.chegg.com.chegghomework.data.remote.CheggRemoteDataSource;
 import homework.chegg.com.chegghomework.data.remote.CheggService;
 import javax.inject.Singleton;
 import okhttp3.Cache;
@@ -23,13 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class CheggRemoteDataSourceModule {
 
-  private final static String BASE_URL = "http://chegg-mobile-promotioms.s3.amazonaws.com/android/homework/";
+  private static final String BASE_URL = "http://chegg-mobile-promotioms.s3.amazonaws.com/android/homework/";
 
-  @Provides
-  @Singleton
-  CheggDataSource provideCheggRemoteDataSource(CheggService cheggService) {
-    return new CheggRemoteDataSource(cheggService);
-  }
 
   @Provides
   @Singleton
