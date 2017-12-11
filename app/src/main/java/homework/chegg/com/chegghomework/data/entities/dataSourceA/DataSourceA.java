@@ -28,19 +28,15 @@ public class DataSourceA implements DataConverter {
 
     @Override
     public List<Item> convert() {
-      //  Log.w("jira", "convert: called" );
         List<Item> itemList = new ArrayList<>();
-        // itemList = Collections.EMPTY_LIST;
         for (Story story: stories){
-          //  Log.e("jira", "convert: inside loop" );
             Item item = new Item();
             item.setHeader(story.getTitle()!= null?story.getTitle():"empty");
             item.setDescription(story.getSubtitle()!= null?story.getSubtitle():"empty");
             item.setPicture(story.getImageUrl()!= null?story.getImageUrl():"empty");
             itemList.add(item);
-           // Log.d("jira", "convert: end of loop");
         }
-      //  Log.e("jira", "convert: itemlist size is "+itemList.size() );
+
         return itemList;
     }
 
@@ -49,8 +45,5 @@ public class DataSourceA implements DataConverter {
 
     }
 
-//    @Override
-//    public Item convertItem() {
-//        return null;
-//    }
+
 }

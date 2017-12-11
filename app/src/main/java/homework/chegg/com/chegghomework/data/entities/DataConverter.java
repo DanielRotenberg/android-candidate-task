@@ -12,6 +12,4 @@ public interface DataConverter {
 
    void fetchData();
 
-  // Item convertItem();
-
 }

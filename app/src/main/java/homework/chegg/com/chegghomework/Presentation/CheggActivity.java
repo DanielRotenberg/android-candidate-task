@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 public class CheggActivity extends AppCompatActivity implements CheggContract.View {
 
+    public static final String TAG = CheggActivity.class.getSimpleName();
     @Inject
     CheggContract.Presenter presenter;
 
@@ -95,14 +96,13 @@ public class CheggActivity extends AppCompatActivity implements CheggContract.Vi
 
     @Override
     public void showUpdatedData(List<Item> itemList) {
-        Log.e("jira", "showUpdatedData: called in Activity only ONCE size is " + itemList.size());
+        Log.d(TAG, " called only once");
         mRecyclerView.setAdapter(new CheggAdapter(itemList));
         presenter.refreshData();
     }
 
     @Override
     public void showRefreshData(List<Item> itemList) {
-        Log.d("jira", "showRefreshData: called boooom!!!!@");
         mRecyclerView.setAdapter(new CheggAdapter(itemList));
     }
 
